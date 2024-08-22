@@ -1,7 +1,7 @@
 import React from "react";
 import "./.css";
 import { useSelector, useDispatch } from "react-redux";
-import { updateSelected } from "../../store/charactersSlice";
+// import { updateSelected } from "../../store/charactersSlice";
 
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -17,35 +17,36 @@ function MenuListItem({ id, avatar, content }) {
 
   const dispatch = useDispatch();
 
-  const selected = useSelector((state) => state.characters.selected.id) == id;
+  // const selected = useSelector((state) => state.characters.selected.id) == id;
 
-  const onItemClickHandler = () => {
-    dispatch(updateSelected(id));
-  };
+  // const onItemClickHandler = () => {
+  //   dispatch(updateSelected(id));
+  // };
 
   return (
-    <ListItem
-      alignItems="flex-start"
-      onClick={onItemClickHandler}
-      sx={{ backgroundColor: selected ? theme.palette.primary.main : "" }}
-    >
-      <ListItemButton sx={{ height: 180 }}>
-        <ListItemAvatar>
-          <Avatar alt="Character Avatar" src={avatar} />
-        </ListItemAvatar>
-        {!matches ? (
-          <></>
-        ) : (
-          <ListItemText
-            primary={content}
-            primaryTypographyProps={{
-              fontWeight: selected ? "700" : "300",
-              fontSize: 24,
-            }}
-          />
-        )}
-      </ListItemButton>
-    </ListItem>
+    // <ListItem
+    //   alignItems="flex-start"
+    //   onClick={onItemClickHandler}
+    //   sx={{ backgroundColor: selected ? theme.palette.primary.main : "" }}
+    // >
+    //   <ListItemButton sx={{ height: 180 }}>
+    //     <ListItemAvatar>
+    //       <Avatar alt="Character Avatar" src={avatar} />
+    //     </ListItemAvatar>
+    //     {!matches ? (
+    //       <></>
+    //     ) : (
+    //       <ListItemText
+    //         primary={content}
+    //         primaryTypographyProps={{
+    //           fontWeight: selected ? "700" : "300",
+    //           fontSize: 24,
+    //         }}
+    //       />
+    //     )}
+    //   </ListItemButton>
+    // </ListItem>
+    <></>
   );
 }
 

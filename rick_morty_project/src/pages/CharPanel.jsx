@@ -100,7 +100,7 @@ export default function CharPanel() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: 'yellow'
+            background: ''
           }}
         >
           <Avatar

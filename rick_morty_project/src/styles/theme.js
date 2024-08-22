@@ -27,6 +27,13 @@ export const generateTheme = (position) => {
       }
     },
     components:{
+      MuiListItem: {
+        styleOverrides:{
+          root:{
+            padding: 0
+          }
+        }
+      },
       MuiTable: {
         styleOverrides:{
           root:{

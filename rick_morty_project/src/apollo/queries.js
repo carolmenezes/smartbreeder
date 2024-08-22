@@ -2,10 +2,10 @@ import { gql, useQuery } from "@apollo/client";
 
 export { useQuery };
 
-export let char = {
-  GET_CHARACTER: gql`
-  query {
-    characters(page: 1) {
+export let charactersSchema = {
+  GET: gql`
+  query GetAllCharacters ($page: Int) {
+    characters(page: $page) {
       results {
         id
         name
@@ -13,8 +13,11 @@ export let char = {
       }
     }
   }
-`,
-  GET_ONE: gql`
+`
+}
+
+export let characterSchema = {
+  GET: gql`
   query GetFullCharData ($id: ID!) {
   character(id: $id) {
     id

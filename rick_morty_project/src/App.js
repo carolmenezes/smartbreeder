@@ -17,18 +17,17 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import { generateTheme } from './styles/theme';
 
-import DefaultLayout from './Layouts/Default';
-import LoadingScreen from './components/LoadingScreen';
+import CharacterPanel from './pages/CharacterPanel';
 
 function App() {
-  const teste = useSelector((state) => state.characters.selected.id);
-  const theme = generateTheme(teste);
+  const dynamicTheme = useSelector((state) => state.characters.active);
+  const theme = generateTheme(dynamicTheme);
+
   return (
     <ApolloProvider client={ApolloClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <DefaultLayout />
-        <LoadingScreen />
+        <CharacterPanel />
       </ThemeProvider>
     </ApolloProvider>
   );
