@@ -13,3 +13,8 @@ Inicialização: npm run start
 
 Visão do projeto
 ![image](https://github.com/user-attachments/assets/1712463a-35b2-4a50-b035-a568add1a9b9)
+
+
+Próximas funcionalidades
+- Posicionar a listagem de personagens em modo absoluto para smartphones.
+- Tipar o projeto Typescript
