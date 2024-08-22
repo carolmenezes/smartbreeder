@@ -18,3 +18,4 @@ Visão do projeto
 Próximas funcionalidades
 - Posicionar a listagem de personagens em modo absoluto para smartphones.
 - Tipar o projeto Typescript
+- Arredondamento de células do componente BasicTable.
