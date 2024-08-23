@@ -4,7 +4,9 @@ export const characters = createSlice({
   name: 'characters',
   initialState: {
     active: 1,
-    page: 1
+    page: 1,
+    pagesCount: 1,
+    filter: '',
   },
   reducers: {
     updateActive: (state, action) => {
@@ -12,11 +14,17 @@ export const characters = createSlice({
     },
     updatePage: (state, action) => {
       state.page = action.payload;
+    },
+    setPagesCount: (state, action) => {
+      state.pagesCount = action.payload;
+    },
+    setFilter: (state, action) => {
+      state.filter = action.payload;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { updateActive, updatePage } = characters.actions
+export const { updateActive, updatePage, setPagesCount, setFilter } = characters.actions
 
 export default characters.reducer

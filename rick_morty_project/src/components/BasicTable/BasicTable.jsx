@@ -9,13 +9,13 @@ export default function BasicTable({ columns, rows, align }) {
   return (
     <Table sx={{ minWidth: 100 }} aria-label="simple table">
       <TableHead>
-        <TableRow>
+        <TableRow sx={{ "&:last-child td, &:last-child th": { border: 2, borderRadius: '8px' } }}>
           {columns.map((column, index) => {
             return (
               <TableCell
                 key={index}
                 align={align}
-                sx={{ fontWeight: 600, textTransform: "capitalize" }}
+                sx={{ fontWeight: 600, textTransform: "capitalize", }}
               >
                 {column}
               </TableCell>
@@ -27,7 +27,7 @@ export default function BasicTable({ columns, rows, align }) {
         {rows.map((row, indexRow) => (
           <TableRow
             key={indexRow}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            sx={{ "&:last-child td, &:last-child th": { border: 2, borderRadius: '8px' } }}
           >
             {columns.map((column, indexCol) => {
               return (

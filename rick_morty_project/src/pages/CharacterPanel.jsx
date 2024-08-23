@@ -1,14 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 
 /**APOLLO */
 import { characterSchema, charactersSchema, useQuery } from "../apollo/queries";
 
 /**REDUX */
 import { useSelector, useDispatch } from "react-redux";
-import { updateActive, updatePage } from "../store/charactersSlice";
+import {
+  updateActive,
+  updatePage,
+  setPagesCount,
+  setFilter,
+} from "../store/charactersSlice";
 
 /**MUI */
-import { useTheme, useMediaQuery } from "@mui/material";
+import { useTheme, useMediaQuery, Button } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
@@ -20,6 +25,7 @@ import Pagination from "@mui/material/Pagination";
 import BasicTable from "../components/BasicTable";
 import BasicBarChart from "../components/BasicBarChart";
 import AvatarListItem from "../components/AvatarListItem";
+import ResponsiveDrawer from "../components/ResponsiveDrawer";
 
 /**PAGE ELEMENTS */
 function InfoSlot({ data }) {
@@ -197,6 +203,8 @@ function MenuItens() {
   characters = data.characters.results;
   info = data.characters.info;
 
+  dispatch(setPagesCount(info.pages));
+
   return (
     <List sx={{ position: "relative" }}>
       {characters.map(({ id, name, image }) => {
@@ -216,6 +224,7 @@ function MenuItens() {
 }
 
 function MenuPagination() {
+  const pagesCount = useSelector((state) => state.characters.pagesCount);
   const dispatch = useDispatch();
 
   const handleChange = (event, page) => {
@@ -233,11 +242,11 @@ function MenuPagination() {
         }}
       >
         <Pagination
-          count={10}
+          count={pagesCount}
           variant="outlined"
           color="primary"
           siblingCount={0}
-          boundaryCount={0}
+          boundaryCount={1}
           size="large"
           onChange={handleChange}
         />
@@ -248,41 +257,63 @@ function MenuPagination() {
 
 /**PAGE SET */
 export default function CharacterPanel() {
+  const mainContainer = useRef(null);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [isMobile, setIsMobile] = useState(
+    useMediaQuery(theme.breakpoints.down("md"))
+  );
+
+  useEffect(() => {
+    const handleResize = (entries) => {
+      if (entries.length > 0) {
+        const entry = entries[0];
+        setIsMobile(entry.contentRect.width < theme.breakpoints.values.md);
+      }
+    };
+    const resizeObserver = new ResizeObserver(handleResize);
+
+    if (mainContainer.current) {
+      resizeObserver.observe(mainContainer.current);
+    }
+    return () => {
+      if (mainContainer.current) {
+        resizeObserver.unobserve(mainContainer.current);
+      }
+    };
+  }, []);
 
   return (
     <Fragment>
-      <Box sx={{ flexGrow: 1, height: "inherit" }}>
-        <Grid container spacing={0} sx={{ height: "inherit" }}>
-          <Grid
-            item
-            xs={2}
-            sx={{
-              height: "inherit",
-              backgroundColor: "#3A3A3A",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Box sx={{ flexGrow: 1, overflowY: "auto", overflowX: "hidden" }}>
-              <MenuItens></MenuItens>
-            </Box>
-            <MenuPagination />
-          </Grid>
-          <Grid
-            item
-            xs={10}
-            sx={{
-              height: "inherit",
-              display: "flex",
-              flexDirection: "column",
-              padding: matches ? 1 : 5,
-            }}
-          >
-            <CharacterSet />
-          </Grid>
-        </Grid>
+      <Box
+        sx={{
+          flexGrow: 1,
+          height: "inherit",
+          display: "flex",
+          flexDirection: "row",
+        }}
+        ref={mainContainer}
+      >
+        <ResponsiveDrawer mobile={isMobile}>
+          <Box sx={{ flexGrow: 1, overflowY: "auto", overflowX: "hidden" }}>
+            <MenuItens></MenuItens>
+          </Box>
+          <MenuPagination />
+        </ResponsiveDrawer>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            height: "inherit",
+            display: "flex",
+            flexDirection: "column",
+            padding: 5,
+            overflow: "auto",
+          }}
+        >
+          <CharacterSet />
+        </Box>
       </Box>
     </Fragment>
   );

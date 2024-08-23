@@ -6,6 +6,9 @@ export let charactersSchema = {
   GET: gql`
   query GetAllCharacters ($page: Int) {
     characters(page: $page) {
+      info {
+        pages
+      },
       results {
         id
         name

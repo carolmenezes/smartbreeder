@@ -19,7 +19,6 @@ export default function AvatarListItem({ id, avatar, text, active, action }) {
 
   return (
     <ListItem
-      
       sx={{
         backgroundColor: active ? theme.palette.primary.main : "",
       }}
@@ -36,18 +35,14 @@ export default function AvatarListItem({ id, avatar, text, active, action }) {
         <ListItemAvatar>
           <Avatar alt="Character Avatar" src={avatar} />
         </ListItemAvatar>
-        {!matches ? (
-          <></>
-        ) : (
-          <ListItemText
-            primary={text}
-            primaryTypographyProps={{
-              fontWeight: active ? "700" : "300",
-              fontSize: 24,
-              textOverflow: "ellipsis",
-            }}
-          />
-        )}
+        <ListItemText
+          primary={text}
+          primaryTypographyProps={{
+            fontWeight: active ? "700" : "300",
+            fontSize: 24,
+            textOverflow: "ellipsis",
+          }}
+        />
       </ListItemButton>
     </ListItem>
   );
